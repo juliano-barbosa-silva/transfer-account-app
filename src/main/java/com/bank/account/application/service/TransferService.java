@@ -1,5 +1,6 @@
 package com.bank.account.application.service;
 
+import com.bank.account.application.dto.AccountRequest;
 import com.bank.account.application.dto.TransferRequest;
 import com.bank.account.application.usecase.TransferUseCase;
 import com.bank.account.domain.exception.DatabaseException;
@@ -59,7 +60,11 @@ public class TransferService implements TransferUseCase {
 
             // registrar transacoes
             saveRegistry(from.getId(), "TRANSFER_OUT", request);
-            saveRegistry(to.getId(), "TRANSFER_IN", request);
+            var transferRequestIn =
+                    new TransferRequest(
+                            request.fromAccountId(),request.toAccountId(),request.amount(),
+                            UUID.randomUUID().toString());
+            saveRegistry(to.getId(), "TRANSFER_IN", transferRequestIn);
 
             // envio de mensageria
             producer.send(request);

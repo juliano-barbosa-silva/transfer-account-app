@@ -1,6 +1,7 @@
 package com.bank.account.api.advice;
 
 import com.bank.account.domain.exception.DatabaseException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,17 @@ public class GlobalExceptionHandler {
                 HttpStatus.CONFLICT.value(),
                 "A conta foi modificada por outra operação. Tente novamente."
         );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorResponse> handleDataIntegrity(DataIntegrityViolationException ex) {
+
+        String message = ex.getMessage().contains("idempotency_key")
+                ? "Transação já processada com esta chave."
+                : "Violação de integridade no banco de dados.";
+
+        ErrorResponse error = new ErrorResponse(HttpStatus.CONFLICT.value(), message);
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 
