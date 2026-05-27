@@ -22,6 +22,8 @@ public class AccountEntity {
     @Version
     private Long version;
 
+    protected AccountEntity() {}
+
     public AccountEntity(UUID id, String ownerName, BigDecimal balance, Long version) {
         this.id = id;
         this.ownerName = ownerName;

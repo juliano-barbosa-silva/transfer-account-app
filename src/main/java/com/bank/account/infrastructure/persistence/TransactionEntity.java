@@ -27,6 +27,8 @@ public class TransactionEntity {
     @Column(unique = true)
     private String idempotencyKey;
 
+    private TransactionEntity(){}
+
     public TransactionEntity(UUID id, UUID accountId, String type, BigDecimal amount, Instant createdAt, String idempotencyKey) {
         this.id = id;
         this.accountId = accountId;

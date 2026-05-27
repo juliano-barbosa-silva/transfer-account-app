@@ -3,6 +3,7 @@ package com.bank.account.api.controller;
 import com.bank.account.application.dto.TransferRequest;
 import com.bank.account.application.usecase.TransferUseCase;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,7 +18,7 @@ public class TransferController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void transfer(@RequestBody TransferRequest request) {
+    public void transfer(@RequestBody @Validated TransferRequest request) {
         useCase.transfer(request);
     }
 }
