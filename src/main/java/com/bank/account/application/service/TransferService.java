@@ -1,6 +1,5 @@
 package com.bank.account.application.service;
 
-import com.bank.account.application.dto.AccountRequest;
 import com.bank.account.application.dto.TransferRequest;
 import com.bank.account.application.dto.TransferResponse;
 import com.bank.account.application.usecase.TransferUseCase;
