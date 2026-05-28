@@ -98,6 +98,7 @@ public class TransferService implements TransferUseCase {
                             .map(entity -> new TransferResponse(
                                     entity.getId().toString(),
                                     entity.getAccountId().toString(),
+                                    entity.getType(),
                                     entity.getAmount(),
                                     entity.getCreatedAt().toString()
                             ))
